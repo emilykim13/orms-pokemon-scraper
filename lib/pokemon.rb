@@ -15,9 +15,11 @@ class Pokemon
     end
 
     def self.find(id, db)
-        sql = ("SELECT * FROM pokemon WHERE id = ?")
-        exe = db.execute(sql, id).flatten #if i used [0] or .first it wouldnt access the nested array and therefore i just got lucky with the first element being what i needed
-        Pokemon.new(id:exe[0], name:exe[1], type:exe[2], db: db)
+        # sql = ("SELECT * FROM pokemon WHERE id = ?")
+        # exe = db.execute(sql, id).flatten #if i used [0] or .first it wouldnt access the nested array and therefore i just got lucky with the first element being what i needed
+        # Pokemon.new(id:exe[0], name:exe[1], type:exe[2], db: db)
+        temp = db.execute("SELECT * FROM pokemon WHERE id = ?", id)
+        Pokemon.new(id: id, name: temp[0][1], type: temp[0][2], db: db)
     end
     # binding.pry
 
